@@ -16,10 +16,10 @@ def create_app():
 
     # Configuration
     app.config['SECRET_KEY'] = os.environ.get('SECRET_KEY', 'dev-secret-key-change-in-production')
-    app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get(
-        'DATABASE_URL',
-        'postgresql://localhost/garmin_tracker'
-    )
+
+    # Database - use SQLite by default for easy local development
+    default_db = 'sqlite:///' + os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', 'garmin_tracker.db')
+    app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DATABASE_URL', default_db)
     # Fix for Heroku postgres:// vs postgresql://
     if app.config['SQLALCHEMY_DATABASE_URI'].startswith('postgres://'):
         app.config['SQLALCHEMY_DATABASE_URI'] = app.config['SQLALCHEMY_DATABASE_URI'].replace(
