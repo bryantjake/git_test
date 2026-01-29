@@ -1,0 +1,97 @@
+{% extends 'base.html' %}
+
+{% block title %}Statistics - Garmin Activity Tracker{% endblock %}
+
+{% block content %}
+<div class="stats-page">
+    <h1>Statistics & Summaries</h1>
+
+    <!-- Time Period Selector -->
+    <div class="period-selector">
+        <button class="btn period-btn active" data-period="week">This Week</button>
+        <button class="btn period-btn" data-period="month">This Month</button>
+        <button class="btn period-btn" data-period="year">This Year</button>
+        <button class="btn period-btn" data-period="all">All Time</button>
+    </div>
+
+    <!-- Year Selector -->
+    <div class="year-selector" id="year-selector">
+        <button class="btn btn-icon" id="prev-year">&lt;</button>
+        <span id="selected-year"></span>
+        <button class="btn btn-icon" id="next-year">&gt;</button>
+    </div>
+
+    <!-- Summary Stats -->
+    <div class="summary-stats" id="summary-stats">
+        <div class="stat-card large">
+            <h3>Activities</h3>
+            <p class="stat-value" id="stat-activities">-</p>
+        </div>
+        <div class="stat-card large">
+            <h3>Distance</h3>
+            <p class="stat-value" id="stat-distance">-</p>
+        </div>
+        <div class="stat-card large">
+            <h3>Duration</h3>
+            <p class="stat-value" id="stat-duration">-</p>
+        </div>
+        <div class="stat-card large">
+            <h3>Elevation</h3>
+            <p class="stat-value" id="stat-elevation">-</p>
+        </div>
+        <div class="stat-card large">
+            <h3>Calories</h3>
+            <p class="stat-value" id="stat-calories">-</p>
+        </div>
+    </div>
+
+    <!-- Sport Breakdown -->
+    <section class="sport-breakdown">
+        <h2>By Sport</h2>
+        <div class="sport-cards" id="sport-breakdown">
+            <!-- Populated by JS -->
+        </div>
+    </section>
+
+    <!-- Charts Section -->
+    <section class="stats-charts">
+        <div class="charts-row">
+            <div class="card chart-card">
+                <h3>Monthly Distance Trend</h3>
+                <canvas id="distance-trend-chart"></canvas>
+            </div>
+            <div class="card chart-card">
+                <h3>Monthly Duration Trend</h3>
+                <canvas id="duration-trend-chart"></canvas>
+            </div>
+        </div>
+        <div class="charts-row">
+            <div class="card chart-card">
+                <h3>Year over Year Comparison</h3>
+                <canvas id="yoy-chart"></canvas>
+            </div>
+            <div class="card chart-card">
+                <h3>Activity Distribution</h3>
+                <canvas id="distribution-chart"></canvas>
+            </div>
+        </div>
+    </section>
+
+    <!-- Monthly Calendar View -->
+    <section class="calendar-section">
+        <h2>Monthly Activity Calendar</h2>
+        <div class="month-selector">
+            <button class="btn btn-icon" id="prev-month">&lt;</button>
+            <span id="selected-month"></span>
+            <button class="btn btn-icon" id="next-month">&gt;</button>
+        </div>
+        <div class="calendar" id="activity-calendar">
+            <!-- Populated by JS -->
+        </div>
+    </section>
+</div>
+{% endblock %}
+
+{% block extra_scripts %}
+<script src="{{ url_for('static', filename='js/stats.js') }}"></script>
+{% endblock %}

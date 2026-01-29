@@ -1,0 +1,83 @@
+{% extends 'base.html' %}
+
+{% block title %}Compare Activities - Garmin Activity Tracker{% endblock %}
+
+{% block content %}
+<div class="compare-page">
+    <h1>Compare Activities</h1>
+
+    <!-- Activity Selector -->
+    <div class="activity-selector">
+        <h3>Select Activities to Compare (2-4)</h3>
+        <div class="selector-filters">
+            <select id="compare-sport-filter">
+                <option value="">All Sports</option>
+            </select>
+        </div>
+        <div class="activity-picker" id="activity-picker">
+            <div class="loading">Loading activities...</div>
+        </div>
+        <div class="selected-activities">
+            <h4>Selected: <span id="selected-count">0</span>/4</h4>
+            <div id="selected-list"></div>
+        </div>
+        <button class="btn btn-primary" id="compare-btn" disabled>Compare Selected</button>
+    </div>
+
+    <!-- Comparison Results -->
+    <div class="comparison-results" id="comparison-results" style="display: none;">
+        <h2>Comparison</h2>
+
+        <!-- Metrics Table -->
+        <div class="card">
+            <h3>Key Metrics</h3>
+            <div class="table-container">
+                <table class="comparison-table" id="comparison-table">
+                    <thead>
+                        <tr id="table-header">
+                            <th>Metric</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Charts -->
+        <div class="comparison-charts">
+            <div class="card chart-card">
+                <h3>Distance Comparison</h3>
+                <canvas id="compare-distance-chart"></canvas>
+            </div>
+            <div class="card chart-card">
+                <h3>Pace/Speed Comparison</h3>
+                <canvas id="compare-pace-chart"></canvas>
+            </div>
+        </div>
+
+        <!-- Heart Rate Overlay -->
+        <div class="card chart-card full-width">
+            <h3>Heart Rate Over Time</h3>
+            <canvas id="compare-hr-chart"></canvas>
+        </div>
+
+        <!-- Elevation Overlay -->
+        <div class="card chart-card full-width">
+            <h3>Elevation Profile</h3>
+            <canvas id="compare-elevation-chart"></canvas>
+        </div>
+
+        <!-- Map Comparison -->
+        <div class="card map-card">
+            <h3>Route Comparison</h3>
+            <div id="compare-map" class="compare-map"></div>
+            <div class="map-legend" id="map-legend"></div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_scripts %}
+<script src="{{ url_for('static', filename='js/compare.js') }}"></script>
+{% endblock %}
