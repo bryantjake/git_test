@@ -1,0 +1,93 @@
+{% extends 'base.html' %}
+
+{% block title %}Upload Activity - Garmin Activity Tracker{% endblock %}
+
+{% block content %}
+<div class="upload-page">
+    <h1>Upload Activities</h1>
+
+    <div class="upload-container">
+        <!-- Single File Upload -->
+        <div class="card upload-card">
+            <h3>Upload FIT File</h3>
+            <p class="upload-description">
+                Upload a .FIT file exported from Garmin Connect or directly from your Garmin device.
+            </p>
+
+            <div class="drop-zone" id="drop-zone">
+                <div class="drop-zone-content">
+                    <span class="upload-icon"></span>
+                    <p>Drag and drop your .FIT file here</p>
+                    <p>or</p>
+                    <label for="file-input" class="btn btn-primary">Browse Files</label>
+                    <input type="file" id="file-input" accept=".fit" hidden>
+                </div>
+            </div>
+
+            <div class="upload-progress" id="upload-progress" style="display: none;">
+                <div class="progress-bar">
+                    <div class="progress-fill" id="progress-fill"></div>
+                </div>
+                <p class="progress-text" id="progress-text">Uploading...</p>
+            </div>
+        </div>
+
+        <!-- Batch Upload -->
+        <div class="card upload-card">
+            <h3>Batch Upload</h3>
+            <p class="upload-description">
+                Upload multiple FIT files at once.
+            </p>
+
+            <div class="drop-zone" id="batch-drop-zone">
+                <div class="drop-zone-content">
+                    <span class="upload-icon"></span>
+                    <p>Drag and drop multiple .FIT files here</p>
+                    <p>or</p>
+                    <label for="batch-file-input" class="btn btn-secondary">Browse Files</label>
+                    <input type="file" id="batch-file-input" accept=".fit" multiple hidden>
+                </div>
+            </div>
+
+            <div class="batch-progress" id="batch-progress" style="display: none;">
+                <p><span id="batch-current">0</span> / <span id="batch-total">0</span> files processed</p>
+                <div class="progress-bar">
+                    <div class="progress-fill" id="batch-progress-fill"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Upload Results -->
+    <div class="upload-results" id="upload-results" style="display: none;">
+        <h2>Upload Results</h2>
+        <div class="results-summary">
+            <span class="success-count"><span id="success-count">0</span> Successful</span>
+            <span class="duplicate-count"><span id="duplicate-count">0</span> Duplicates</span>
+            <span class="failed-count"><span id="failed-count">0</span> Failed</span>
+        </div>
+        <div class="results-list" id="results-list">
+        </div>
+    </div>
+
+    <!-- Instructions -->
+    <div class="card instructions-card">
+        <h3>How to Export FIT Files from Garmin</h3>
+        <ol>
+            <li>Go to <a href="https://connect.garmin.com" target="_blank">connect.garmin.com</a></li>
+            <li>Navigate to Activities</li>
+            <li>Click on the activity you want to export</li>
+            <li>Click the gear icon (settings) in the top right</li>
+            <li>Select "Export Original"</li>
+            <li>The .FIT file will be downloaded to your computer</li>
+        </ol>
+        <p class="note">
+            <strong>Note:</strong> You can also find FIT files in the GARMIN/ACTIVITY folder on your watch when connected via USB.
+        </p>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_scripts %}
+<script src="{{ url_for('static', filename='js/upload.js') }}"></script>
+{% endblock %}
