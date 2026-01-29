@@ -1,0 +1,149 @@
+{% extends 'base.html' %}
+
+{% block title %}Settings - Garmin Activity Tracker{% endblock %}
+
+{% block content %}
+<div class="settings-page">
+    <h1>Settings</h1>
+
+    <!-- Garmin Connect Section -->
+    <section class="settings-section">
+        <div class="card">
+            <h2>Garmin Connect</h2>
+            <p class="section-description">
+                Connect your Garmin account to automatically sync activities from Garmin Connect.
+            </p>
+
+            <!-- Connection Status -->
+            <div class="connection-status" id="connection-status">
+                <div class="status-indicator disconnected" id="status-indicator">
+                    <span class="status-dot"></span>
+                    <span class="status-text">Not Connected</span>
+                </div>
+                <div class="user-info" id="user-info" style="display: none;">
+                    <span class="user-name" id="user-name"></span>
+                    <span class="user-email" id="user-email"></span>
+                </div>
+            </div>
+
+            <!-- Login Form (shown when not connected) -->
+            <div class="login-form" id="login-form">
+                <h3>Connect to Garmin</h3>
+                <div class="form-group">
+                    <label for="garmin-email">Garmin Connect Email</label>
+                    <input type="email" id="garmin-email" placeholder="your@email.com">
+                </div>
+                <div class="form-group">
+                    <label for="garmin-password">Password</label>
+                    <input type="password" id="garmin-password" placeholder="Your Garmin password">
+                </div>
+                <p class="security-note">
+                    Your credentials are used only to authenticate with Garmin.
+                    We store session tokens (not your password) for future syncs.
+                </p>
+                <button class="btn btn-primary" id="connect-btn">Connect to Garmin</button>
+            </div>
+
+            <!-- Connected Actions (shown when connected) -->
+            <div class="connected-actions" id="connected-actions" style="display: none;">
+                <button class="btn btn-primary" id="sync-now-btn">Sync Now</button>
+                <button class="btn btn-danger" id="disconnect-btn">Disconnect</button>
+            </div>
+
+            <!-- Sync Progress -->
+            <div class="sync-progress" id="sync-progress" style="display: none;">
+                <div class="progress-bar">
+                    <div class="progress-fill" id="sync-progress-fill"></div>
+                </div>
+                <p class="progress-text" id="sync-progress-text">Syncing activities...</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Auto-Sync Settings -->
+    <section class="settings-section" id="auto-sync-section" style="display: none;">
+        <div class="card">
+            <h2>Auto-Sync Settings</h2>
+
+            <div class="setting-row">
+                <div class="setting-info">
+                    <h4>Enable Auto-Sync</h4>
+                    <p>Automatically check for new activities periodically</p>
+                </div>
+                <label class="toggle">
+                    <input type="checkbox" id="auto-sync-toggle">
+                    <span class="toggle-slider"></span>
+                </label>
+            </div>
+
+            <div class="setting-row">
+                <div class="setting-info">
+                    <h4>Sync Interval</h4>
+                    <p>How often to check for new activities</p>
+                </div>
+                <select id="sync-interval">
+                    <option value="15">Every 15 minutes</option>
+                    <option value="30">Every 30 minutes</option>
+                    <option value="60" selected>Every hour</option>
+                    <option value="120">Every 2 hours</option>
+                    <option value="360">Every 6 hours</option>
+                    <option value="720">Every 12 hours</option>
+                    <option value="1440">Once a day</option>
+                </select>
+            </div>
+
+            <div class="setting-row">
+                <div class="setting-info">
+                    <h4>Days to Sync</h4>
+                    <p>How far back to look for new activities</p>
+                </div>
+                <select id="sync-days">
+                    <option value="1">Last 1 day</option>
+                    <option value="3">Last 3 days</option>
+                    <option value="7" selected>Last 7 days</option>
+                    <option value="14">Last 14 days</option>
+                    <option value="30">Last 30 days</option>
+                </select>
+            </div>
+
+            <button class="btn btn-secondary" id="save-settings-btn">Save Settings</button>
+        </div>
+    </section>
+
+    <!-- Sync History -->
+    <section class="settings-section" id="sync-history-section" style="display: none;">
+        <div class="card">
+            <h2>Sync History</h2>
+
+            <div class="last-sync" id="last-sync">
+                <p><strong>Last Sync:</strong> <span id="last-sync-time">Never</span></p>
+                <p><strong>Status:</strong> <span id="last-sync-status">-</span></p>
+                <p><strong>Activities Synced:</strong> <span id="last-sync-count">0</span></p>
+            </div>
+
+            <h3>Recent Sync Logs</h3>
+            <div class="sync-logs" id="sync-logs">
+                <p class="no-data">No sync history yet</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Garmin Activities Preview -->
+    <section class="settings-section" id="activities-preview-section" style="display: none;">
+        <div class="card">
+            <h2>Recent Garmin Activities</h2>
+            <p class="section-description">Preview of your recent activities on Garmin Connect</p>
+
+            <button class="btn btn-secondary" id="refresh-preview-btn">Refresh</button>
+
+            <div class="garmin-activities-list" id="garmin-activities-list">
+                <div class="loading">Loading...</div>
+            </div>
+        </div>
+    </section>
+</div>
+{% endblock %}
+
+{% block extra_scripts %}
+<script src="{{ url_for('static', filename='js/settings.js') }}"></script>
+{% endblock %}

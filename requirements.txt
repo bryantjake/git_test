@@ -26,3 +26,12 @@ gunicorn==21.2.0
 
 # File handling
 Werkzeug==3.0.1
+
+# Garmin Connect integration
+garminconnect==0.2.19
+
+# Background task scheduler
+APScheduler==3.10.4
+
+# Encryption for stored credentials
+cryptography==41.0.7

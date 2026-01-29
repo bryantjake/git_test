@@ -41,12 +41,19 @@ def create_app():
     # Register blueprints
     from app.routes.main import main_bp
     from app.routes.api import api_bp
+    from app.routes.garmin import garmin_bp
 
     app.register_blueprint(main_bp)
     app.register_blueprint(api_bp, url_prefix='/api')
+    app.register_blueprint(garmin_bp, url_prefix='/api/garmin')
 
     # Create tables
     with app.app_context():
         db.create_all()
+
+    # Initialize background scheduler for auto-sync
+    if os.environ.get('FLASK_ENV') != 'testing':
+        from app.scheduler import init_scheduler
+        init_scheduler(app)
 
     return app

@@ -46,3 +46,9 @@ def stats():
 def upload():
     """Upload page."""
     return render_template('upload.html')
+
+
+@main_bp.route('/settings')
+def settings():
+    """Settings page for Garmin sync."""
+    return render_template('settings.html')

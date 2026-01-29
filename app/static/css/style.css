@@ -1129,3 +1129,348 @@ a:hover {
         grid-template-columns: 1fr;
     }
 }
+
+/* ============ Settings Page ============ */
+.settings-page h1 {
+    margin-bottom: 2rem;
+}
+
+.settings-section {
+    margin-bottom: 2rem;
+}
+
+.settings-section .card h2 {
+    margin-bottom: 0.5rem;
+    color: var(--text-primary);
+}
+
+.section-description {
+    color: var(--text-secondary);
+    margin-bottom: 1.5rem;
+}
+
+/* Connection Status */
+.connection-status {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+    padding: 1rem;
+    background-color: var(--background-color);
+    border-radius: var(--radius);
+}
+
+.status-indicator {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.status-dot {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background-color: var(--danger-color);
+}
+
+.status-indicator.connected .status-dot {
+    background-color: var(--success-color);
+}
+
+.status-indicator.connected .status-text {
+    color: var(--success-color);
+}
+
+.status-indicator.disconnected .status-text {
+    color: var(--danger-color);
+}
+
+.user-info {
+    display: flex;
+    flex-direction: column;
+    margin-left: auto;
+}
+
+.user-name {
+    font-weight: 600;
+}
+
+.user-email {
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+}
+
+/* Login Form */
+.login-form {
+    max-width: 400px;
+}
+
+.login-form h3 {
+    margin-bottom: 1rem;
+}
+
+.form-group {
+    margin-bottom: 1rem;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 0.25rem;
+    font-weight: 500;
+}
+
+.form-group input {
+    width: 100%;
+    padding: 0.75rem;
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius);
+    font-size: 1rem;
+}
+
+.form-group input:focus {
+    outline: none;
+    border-color: var(--primary-color);
+}
+
+.security-note {
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+    margin-bottom: 1rem;
+    padding: 0.75rem;
+    background-color: var(--background-color);
+    border-radius: var(--radius);
+}
+
+/* Connected Actions */
+.connected-actions {
+    display: flex;
+    gap: 1rem;
+}
+
+/* Sync Progress */
+.sync-progress {
+    margin-top: 1rem;
+    padding: 1rem;
+    background-color: var(--background-color);
+    border-radius: var(--radius);
+}
+
+/* Setting Rows */
+.setting-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 0;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.setting-row:last-of-type {
+    border-bottom: none;
+    margin-bottom: 1rem;
+}
+
+.setting-info h4 {
+    margin-bottom: 0.25rem;
+}
+
+.setting-info p {
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+}
+
+.setting-row select {
+    padding: 0.5rem 1rem;
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius);
+    font-size: 1rem;
+    min-width: 180px;
+}
+
+/* Toggle Switch */
+.toggle {
+    position: relative;
+    display: inline-block;
+    width: 50px;
+    height: 28px;
+}
+
+.toggle input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.toggle-slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: var(--border-color);
+    transition: 0.3s;
+    border-radius: 28px;
+}
+
+.toggle-slider:before {
+    position: absolute;
+    content: "";
+    height: 20px;
+    width: 20px;
+    left: 4px;
+    bottom: 4px;
+    background-color: white;
+    transition: 0.3s;
+    border-radius: 50%;
+}
+
+.toggle input:checked + .toggle-slider {
+    background-color: var(--primary-color);
+}
+
+.toggle input:checked + .toggle-slider:before {
+    transform: translateX(22px);
+}
+
+/* Last Sync Info */
+.last-sync {
+    padding: 1rem;
+    background-color: var(--background-color);
+    border-radius: var(--radius);
+    margin-bottom: 1.5rem;
+}
+
+.last-sync p {
+    margin: 0.25rem 0;
+}
+
+.last-sync .success {
+    color: var(--success-color);
+}
+
+.last-sync .error {
+    color: var(--danger-color);
+}
+
+/* Sync Logs */
+.sync-logs {
+    max-height: 300px;
+    overflow-y: auto;
+}
+
+.sync-log-item {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 0.75rem;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.sync-log-item:last-child {
+    border-bottom: none;
+}
+
+.log-time {
+    min-width: 140px;
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+}
+
+.log-status {
+    padding: 0.25rem 0.5rem;
+    border-radius: 4px;
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    font-weight: 600;
+}
+
+.log-status.success {
+    background-color: rgba(0, 184, 148, 0.1);
+    color: var(--success-color);
+}
+
+.log-status.failed {
+    background-color: rgba(214, 48, 49, 0.1);
+    color: var(--danger-color);
+}
+
+.log-status.in_progress {
+    background-color: rgba(9, 132, 227, 0.1);
+    color: #0984e3;
+}
+
+.log-counts {
+    display: flex;
+    gap: 0.75rem;
+    font-size: 0.85rem;
+}
+
+.log-counts .synced {
+    color: var(--success-color);
+}
+
+.log-counts .skipped {
+    color: var(--text-secondary);
+}
+
+.log-counts .failed {
+    color: var(--danger-color);
+}
+
+.log-error {
+    font-size: 0.85rem;
+    color: var(--danger-color);
+}
+
+/* Garmin Activities Preview */
+.garmin-activities-list {
+    margin-top: 1rem;
+}
+
+.garmin-activity-item {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 0.75rem;
+    background-color: var(--background-color);
+    border-radius: var(--radius);
+    margin-bottom: 0.5rem;
+}
+
+.garmin-activity-item .activity-sport {
+    padding: 0.25rem 0.5rem;
+    background-color: var(--primary-color);
+    color: white;
+    border-radius: 4px;
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    font-weight: 600;
+    min-width: 70px;
+    text-align: center;
+}
+
+.garmin-activity-item .activity-name {
+    flex: 1;
+    font-weight: 500;
+}
+
+.garmin-activity-item .activity-date {
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+}
+
+.garmin-activity-item .activity-stats {
+    display: flex;
+    gap: 1rem;
+    font-size: 0.85rem;
+}
+
+.no-data {
+    color: var(--text-secondary);
+    text-align: center;
+    padding: 1rem;
+}
+
+.error {
+    color: var(--danger-color);
+}
