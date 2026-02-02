@@ -6,6 +6,7 @@ lxml>=4.9.0
 # Data processing
 pandas>=2.0.0
 numpy>=1.24.0
+scipy>=1.11.0
 
 # Database
 sqlalchemy>=2.0.0
@@ -13,8 +14,12 @@ sqlalchemy>=2.0.0
 # Scheduling
 schedule>=1.2.0
 
-# Output generation
-jinja2>=3.1.0
+# Premium terminal output
+rich>=13.0.0
+
+# Premium web dashboard
+streamlit>=1.28.0
+plotly>=5.18.0
 
 # Utilities
 python-dateutil>=2.8.0
