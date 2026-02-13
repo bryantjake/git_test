@@ -1,0 +1,21 @@
+databases:
+  - name: nfl-geoguessr-db
+    plan: starter
+    databaseName: nfl_geoguessr
+
+services:
+  - type: web
+    name: nfl-geoguessr
+    runtime: python
+    buildCommand: ./build.sh
+    startCommand: gunicorn run:app --bind 0.0.0.0:$PORT
+    healthCheckPath: /health
+    envVars:
+      - key: SECRET_KEY
+        generateValue: true
+      - key: PYTHON_VERSION
+        value: 3.11.0
+      - key: DATABASE_URL
+        fromDatabase:
+          name: nfl-geoguessr-db
+          property: connectionString

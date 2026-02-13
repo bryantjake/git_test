@@ -1,0 +1,133 @@
+{% extends 'base.html' %}
+
+{% block title %}Play - NFL GeoGuessr{% endblock %}
+
+{% block content %}
+<!-- Loading Screen -->
+<div id="loading-screen" class="loading-screen">
+    <div class="loading-spinner"></div>
+    <p>Loading game...</p>
+</div>
+
+<!-- No Photos Screen -->
+<div id="no-photos-screen" class="no-photos-screen" style="display:none;">
+    <h2>No Photos Available</h2>
+    <p>Upload some NFL photos first to start playing!</p>
+    <a href="/upload" class="btn btn-play">Upload Photos</a>
+</div>
+
+<!-- Game Screen -->
+<div id="game-screen" class="game-screen" style="display:none;">
+    <!-- Round Header -->
+    <div class="round-header">
+        <div class="round-info">
+            <span class="round-label">Round <span id="current-round">1</span> / <span id="total-rounds">5</span></span>
+        </div>
+        <div class="score-display">
+            <span class="score-label">Total Score</span>
+            <span class="score-value" id="total-score">0</span>
+        </div>
+    </div>
+
+    <!-- Game Layout -->
+    <div class="game-layout">
+        <!-- Photo Side -->
+        <div class="photo-panel">
+            <div class="photo-container">
+                <img id="game-photo" src="" alt="NFL Photo" />
+                <div id="photo-description" class="photo-description" style="display:none;"></div>
+            </div>
+        </div>
+
+        <!-- Controls Side -->
+        <div class="controls-panel">
+            <!-- Map -->
+            <div class="map-section">
+                <h3>Drop a pin where this game was played</h3>
+                <div id="game-map" class="game-map"></div>
+                <p class="map-hint" id="map-hint">Click on the map to place your guess</p>
+            </div>
+
+            <!-- Year Slider -->
+            <div class="year-section">
+                <h3>What year was this photo taken?</h3>
+                <div class="year-slider-container">
+                    <span class="year-bound">1920</span>
+                    <input type="range" id="year-slider" class="year-slider" min="1920" max="2025" value="1970" />
+                    <span class="year-bound">2025</span>
+                </div>
+                <div class="year-display">
+                    <span id="year-value" class="year-value">1970</span>
+                </div>
+            </div>
+
+            <!-- Submit -->
+            <button id="submit-guess" class="btn btn-submit" disabled>Submit Guess</button>
+        </div>
+    </div>
+</div>
+
+<!-- Results Overlay -->
+<div id="round-results" class="round-results" style="display:none;">
+    <div class="results-card">
+        <h2>Round <span id="result-round">1</span> Results</h2>
+
+        <div class="result-scores">
+            <div class="result-score-item">
+                <div class="result-icon">&#127759;</div>
+                <div class="result-detail">
+                    <span class="result-label">Location</span>
+                    <span class="result-points" id="result-location-score">0</span>
+                    <span class="result-sub" id="result-distance"></span>
+                </div>
+                <div class="result-bar-wrap"><div class="result-bar location-bar" id="location-bar"></div></div>
+            </div>
+            <div class="result-score-item">
+                <div class="result-icon">&#128197;</div>
+                <div class="result-detail">
+                    <span class="result-label">Year</span>
+                    <span class="result-points" id="result-year-score">0</span>
+                    <span class="result-sub" id="result-year-diff"></span>
+                </div>
+                <div class="result-bar-wrap"><div class="result-bar year-bar" id="year-bar"></div></div>
+            </div>
+        </div>
+
+        <div class="result-total">
+            <span class="result-total-label">Round Score</span>
+            <span class="result-total-value" id="result-total-score">0</span>
+            <span class="result-total-max">/ 10,000</span>
+        </div>
+
+        <div class="result-actual">
+            <p><strong>Location:</strong> <span id="result-actual-location"></span></p>
+            <p><strong>Year:</strong> <span id="result-actual-year"></span></p>
+        </div>
+
+        <!-- Results Map -->
+        <div id="result-map" class="result-map"></div>
+
+        <button id="next-round" class="btn btn-play">Next Round</button>
+    </div>
+</div>
+
+<!-- Final Results -->
+<div id="final-results" class="final-results" style="display:none;">
+    <div class="final-card">
+        <h1>Game Over!</h1>
+        <div class="final-score-circle">
+            <span class="final-score-value" id="final-score">0</span>
+            <span class="final-score-max">/ 50,000</span>
+        </div>
+        <div class="final-breakdown" id="final-breakdown"></div>
+        <div class="final-actions">
+            <button id="play-again" class="btn btn-play">Play Again</button>
+            <a href="/" class="btn btn-secondary">Home</a>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_scripts %}
+<script src="{{ url_for('static', filename='js/game.js') }}"></script>
+{% endblock %}

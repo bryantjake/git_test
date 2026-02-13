@@ -1,89 +1,69 @@
 {% extends 'base.html' %}
 
-{% block title %}Upload Activity - Garmin Activity Tracker{% endblock %}
+{% block title %}Upload Photos - NFL GeoGuessr{% endblock %}
 
 {% block content %}
 <div class="upload-page">
-    <h1>Upload Activities</h1>
+    <h1>Upload NFL Photos</h1>
+    <p class="upload-intro">Add historic NFL photos to the game. Provide the year and location where the game was played.</p>
 
-    <div class="upload-container">
-        <!-- Single File Upload -->
-        <div class="card upload-card">
-            <h3>Upload FIT File</h3>
-            <p class="upload-description">
-                Upload a .FIT file exported from Garmin Connect or directly from your Garmin device.
-            </p>
-
-            <div class="drop-zone" id="drop-zone">
-                <div class="drop-zone-content">
-                    <span class="upload-icon"></span>
-                    <p>Drag and drop your .FIT file here</p>
-                    <p>or</p>
-                    <label for="file-input" class="btn btn-primary">Browse Files</label>
-                    <input type="file" id="file-input" accept=".fit" hidden>
+    <div class="upload-layout">
+        <!-- Upload Form -->
+        <div class="card upload-form-card">
+            <h2>Add New Photo</h2>
+            <form id="upload-form">
+                <!-- File Drop Zone -->
+                <div class="drop-zone" id="drop-zone">
+                    <div class="drop-zone-content" id="drop-zone-content">
+                        <div class="drop-icon">&#128247;</div>
+                        <p>Drag & drop an image here</p>
+                        <p class="drop-or">or</p>
+                        <label for="file-input" class="btn btn-outline">Browse Files</label>
+                        <input type="file" id="file-input" accept="image/*" hidden>
+                    </div>
+                    <img id="preview-img" class="preview-img" style="display:none;" />
                 </div>
-            </div>
 
-            <div class="upload-progress" id="upload-progress" style="display: none;">
-                <div class="progress-bar">
-                    <div class="progress-fill" id="progress-fill"></div>
+                <!-- Description -->
+                <div class="form-group">
+                    <label for="description">Description (optional, shown to player)</label>
+                    <input type="text" id="description" placeholder="e.g. Super Bowl XLII - Giants vs Patriots" />
                 </div>
-                <p class="progress-text" id="progress-text">Uploading...</p>
-            </div>
+
+                <!-- Year -->
+                <div class="form-group">
+                    <label for="year">Year *</label>
+                    <input type="number" id="year" min="1920" max="2025" placeholder="e.g. 2008" required />
+                </div>
+
+                <!-- Location Name -->
+                <div class="form-group">
+                    <label for="location-name">Stadium / Location Name (optional)</label>
+                    <input type="text" id="location-name" placeholder="e.g. University of Phoenix Stadium, Glendale, AZ" />
+                </div>
+
+                <!-- Map Picker -->
+                <div class="form-group">
+                    <label>Click the map to set the game location *</label>
+                    <div id="upload-map" class="upload-map"></div>
+                    <div class="coords-display">
+                        <span id="coords-text">No location selected</span>
+                    </div>
+                    <input type="hidden" id="latitude" />
+                    <input type="hidden" id="longitude" />
+                </div>
+
+                <button type="submit" class="btn btn-submit" id="submit-btn" disabled>Upload Photo</button>
+            </form>
         </div>
 
-        <!-- Batch Upload -->
-        <div class="card upload-card">
-            <h3>Batch Upload</h3>
-            <p class="upload-description">
-                Upload multiple FIT files at once.
-            </p>
-
-            <div class="drop-zone" id="batch-drop-zone">
-                <div class="drop-zone-content">
-                    <span class="upload-icon"></span>
-                    <p>Drag and drop multiple .FIT files here</p>
-                    <p>or</p>
-                    <label for="batch-file-input" class="btn btn-secondary">Browse Files</label>
-                    <input type="file" id="batch-file-input" accept=".fit" multiple hidden>
-                </div>
-            </div>
-
-            <div class="batch-progress" id="batch-progress" style="display: none;">
-                <p><span id="batch-current">0</span> / <span id="batch-total">0</span> files processed</p>
-                <div class="progress-bar">
-                    <div class="progress-fill" id="batch-progress-fill"></div>
-                </div>
+        <!-- Existing Photos -->
+        <div class="card photos-list-card">
+            <h2>Uploaded Photos <span class="photo-count" id="photo-count">(0)</span></h2>
+            <div id="photos-list" class="photos-list">
+                <p class="empty-state">No photos uploaded yet.</p>
             </div>
         </div>
-    </div>
-
-    <!-- Upload Results -->
-    <div class="upload-results" id="upload-results" style="display: none;">
-        <h2>Upload Results</h2>
-        <div class="results-summary">
-            <span class="success-count"><span id="success-count">0</span> Successful</span>
-            <span class="duplicate-count"><span id="duplicate-count">0</span> Duplicates</span>
-            <span class="failed-count"><span id="failed-count">0</span> Failed</span>
-        </div>
-        <div class="results-list" id="results-list">
-        </div>
-    </div>
-
-    <!-- Instructions -->
-    <div class="card instructions-card">
-        <h3>How to Export FIT Files from Garmin</h3>
-        <ol>
-            <li>Go to <a href="https://connect.garmin.com" target="_blank">connect.garmin.com</a></li>
-            <li>Navigate to Activities</li>
-            <li>Click on the activity you want to export</li>
-            <li>Click the gear icon (settings) in the top right</li>
-            <li>Select "Export Original"</li>
-            <li>The .FIT file will be downloaded to your computer</li>
-        </ol>
-        <p class="note">
-            <strong>Note:</strong> You can also find FIT files in the GARMIN/ACTIVITY folder on your watch when connected via USB.
-        </p>
     </div>
 </div>
 {% endblock %}
