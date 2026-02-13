@@ -1,9 +1,5 @@
 #!/usr/bin/env python3
-"""
-Garmin Activity Tracker - Main Entry Point
-
-A Strava-like application for tracking and analyzing Garmin fitness data.
-"""
+"""NFL GeoGuessr - Guess when and where NFL photos were taken."""
 
 from app import create_app
 

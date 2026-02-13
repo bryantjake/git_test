@@ -1,107 +1,47 @@
 {% extends 'base.html' %}
 
-{% block title %}Dashboard - Garmin Activity Tracker{% endblock %}
+{% block title %}NFL GeoGuessr - Guess When & Where{% endblock %}
 
 {% block content %}
-<div class="dashboard">
-    <h1>Dashboard</h1>
-
-    <!-- Summary Cards -->
-    <section class="summary-cards" id="summary-cards">
-        <div class="card stat-card">
-            <div class="stat-icon">
-                <span class="icon-activity"></span>
+<div class="hero">
+    <div class="hero-content">
+        <h1 class="hero-title">NFL GeoGuessr</h1>
+        <p class="hero-subtitle">Can you guess when and where these iconic NFL moments happened?</p>
+        <div class="hero-stats">
+            <div class="hero-stat">
+                <span class="hero-stat-value">5</span>
+                <span class="hero-stat-label">Rounds</span>
             </div>
-            <div class="stat-content">
-                <h3>Total Activities</h3>
-                <p class="stat-value" id="total-activities">-</p>
+            <div class="hero-stat">
+                <span class="hero-stat-value">10K</span>
+                <span class="hero-stat-label">Points / Round</span>
             </div>
-        </div>
-        <div class="card stat-card">
-            <div class="stat-icon">
-                <span class="icon-distance"></span>
-            </div>
-            <div class="stat-content">
-                <h3>Total Distance</h3>
-                <p class="stat-value" id="total-distance">-</p>
+            <div class="hero-stat">
+                <span class="hero-stat-value">50K</span>
+                <span class="hero-stat-label">Max Score</span>
             </div>
         </div>
-        <div class="card stat-card">
-            <div class="stat-icon">
-                <span class="icon-time"></span>
-            </div>
-            <div class="stat-content">
-                <h3>Total Time</h3>
-                <p class="stat-value" id="total-time">-</p>
-            </div>
-        </div>
-        <div class="card stat-card">
-            <div class="stat-icon">
-                <span class="icon-elevation"></span>
-            </div>
-            <div class="stat-content">
-                <h3>Total Elevation</h3>
-                <p class="stat-value" id="total-elevation">-</p>
-            </div>
-        </div>
-    </section>
-
-    <!-- Charts Row -->
-    <section class="charts-row">
-        <div class="card chart-card">
-            <h3>This Week</h3>
-            <div class="weekly-summary" id="weekly-summary">
-                <div class="week-stat">
-                    <span class="label">Activities</span>
-                    <span class="value" id="week-activities">-</span>
+        <a href="/play" class="btn btn-play">Play Now</a>
+        <div class="hero-how">
+            <h2>How It Works</h2>
+            <div class="how-steps">
+                <div class="how-step">
+                    <div class="step-number">1</div>
+                    <h3>View the Photo</h3>
+                    <p>You'll see a historic NFL photo from somewhere in football history.</p>
                 </div>
-                <div class="week-stat">
-                    <span class="label">Distance</span>
-                    <span class="value" id="week-distance">-</span>
+                <div class="how-step">
+                    <div class="step-number">2</div>
+                    <h3>Drop a Pin</h3>
+                    <p>Click the map to guess where the game was played. The closer, the more points.</p>
                 </div>
-                <div class="week-stat">
-                    <span class="label">Duration</span>
-                    <span class="value" id="week-duration">-</span>
-                </div>
-                <div class="week-stat">
-                    <span class="label">Calories</span>
-                    <span class="value" id="week-calories">-</span>
+                <div class="how-step">
+                    <div class="step-number">3</div>
+                    <h3>Pick the Year</h3>
+                    <p>Use the slider to guess what year the photo was taken. Precision pays off.</p>
                 </div>
             </div>
         </div>
-        <div class="card chart-card">
-            <h3>Monthly Distance</h3>
-            <canvas id="monthly-chart"></canvas>
-        </div>
-        <div class="card chart-card">
-            <h3>Activity by Sport</h3>
-            <canvas id="sport-chart"></canvas>
-        </div>
-    </section>
-
-    <!-- Recent Activities -->
-    <section class="recent-activities">
-        <div class="section-header">
-            <h2>Recent Activities</h2>
-            <a href="/activities" class="btn btn-link">View All</a>
-        </div>
-        <div class="activities-list" id="recent-activities">
-            <div class="loading">Loading activities...</div>
-        </div>
-    </section>
-
-    <!-- Activity Heatmap -->
-    <section class="heatmap-section">
-        <div class="card">
-            <h3>Activity Heatmap <span id="heatmap-year"></span></h3>
-            <div class="heatmap-container" id="heatmap-container">
-                <div class="loading">Loading heatmap...</div>
-            </div>
-        </div>
-    </section>
+    </div>
 </div>
-{% endblock %}
-
-{% block extra_scripts %}
-<script src="{{ url_for('static', filename='js/dashboard.js') }}"></script>
 {% endblock %}

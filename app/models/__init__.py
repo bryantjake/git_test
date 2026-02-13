@@ -1,4 +1,3 @@
-from app.models.activity import Activity, ActivityLap, ActivityRecord, GpsPoint
-from app.models.personal_record import PersonalRecord
+from app.models.photo import Photo
 
-__all__ = ['Activity', 'ActivityLap', 'ActivityRecord', 'GpsPoint', 'PersonalRecord']
+__all__ = ['Photo']
