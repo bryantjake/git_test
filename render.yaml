@@ -1,14 +1,15 @@
 databases:
   - name: nfl-geoguessr-db
-    plan: free
+    plan: starter
     databaseName: nfl_geoguessr
 
 services:
   - type: web
     name: nfl-geoguessr
     runtime: python
-    buildCommand: pip install -r requirements.txt
+    buildCommand: ./build.sh
     startCommand: gunicorn run:app --bind 0.0.0.0:$PORT
+    healthCheckPath: /health
     envVars:
       - key: SECRET_KEY
         generateValue: true
