@@ -5,6 +5,7 @@ Flask-CORS==4.0.0
 
 # Database
 SQLAlchemy==2.0.23
+psycopg2-binary==2.9.9
 
 # Environment variables
 python-dotenv==1.0.0

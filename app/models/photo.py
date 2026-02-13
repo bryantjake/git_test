@@ -7,6 +7,8 @@ class Photo(db.Model):
 
     id = db.Column(db.Integer, primary_key=True)
     filename = db.Column(db.String(255), nullable=False)
+    content_type = db.Column(db.String(100), nullable=False, default='image/jpeg')
+    image_data = db.Column(db.LargeBinary, nullable=True)
     year = db.Column(db.Integer, nullable=False)
     latitude = db.Column(db.Float, nullable=False)
     longitude = db.Column(db.Float, nullable=False)

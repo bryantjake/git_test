@@ -1,13 +1,20 @@
-import os
 import uuid
-from flask import Blueprint, request, jsonify, current_app, send_from_directory
-from werkzeug.utils import secure_filename
+import math
+from flask import Blueprint, request, jsonify, Response
 from app import db
 from app.models import Photo
 
 api_bp = Blueprint('api', __name__)
 
 ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg', 'gif', 'webp'}
+
+CONTENT_TYPES = {
+    'png': 'image/png',
+    'jpg': 'image/jpeg',
+    'jpeg': 'image/jpeg',
+    'gif': 'image/gif',
+    'webp': 'image/webp',
+}
 
 
 def allowed_file(filename):
@@ -16,7 +23,8 @@ def allowed_file(filename):
 
 @api_bp.route('/photos/file/<filename>')
 def serve_photo(filename):
-    return send_from_directory(current_app.config['UPLOAD_FOLDER'], filename)
+    photo = Photo.query.filter_by(filename=filename).first_or_404()
+    return Response(photo.image_data, mimetype=photo.content_type)
 
 
 @api_bp.route('/photos', methods=['GET'])
@@ -48,11 +56,12 @@ def upload_photo():
 
     ext = file.filename.rsplit('.', 1)[1].lower()
     filename = f"{uuid.uuid4().hex}.{ext}"
-    filepath = os.path.join(current_app.config['UPLOAD_FOLDER'], filename)
-    file.save(filepath)
+    image_bytes = file.read()
 
     photo = Photo(
         filename=filename,
+        content_type=CONTENT_TYPES.get(ext, 'image/jpeg'),
+        image_data=image_bytes,
         year=year,
         latitude=latitude,
         longitude=longitude,
@@ -68,11 +77,6 @@ def upload_photo():
 @api_bp.route('/photos/<int:photo_id>', methods=['DELETE'])
 def delete_photo(photo_id):
     photo = Photo.query.get_or_404(photo_id)
-
-    filepath = os.path.join(current_app.config['UPLOAD_FOLDER'], photo.filename)
-    if os.path.exists(filepath):
-        os.remove(filepath)
-
     db.session.delete(photo)
     db.session.commit()
     return jsonify({'message': 'Photo deleted'})
@@ -117,7 +121,6 @@ def score_guess():
         year_score = max(0, int(5000 * max(0, 1 - (year_diff / 50) ** 1.5)))
 
     # Location scoring: exponential decay based on distance in km, 5000 max
-    import math
     lat1, lon1 = math.radians(photo.latitude), math.radians(photo.longitude)
     lat2, lon2 = math.radians(guessed_lat), math.radians(guessed_lng)
 

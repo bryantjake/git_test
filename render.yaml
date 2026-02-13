@@ -1,3 +1,8 @@
+databases:
+  - name: nfl-geoguessr-db
+    plan: free
+    databaseName: nfl_geoguessr
+
 services:
   - type: web
     name: nfl-geoguessr
@@ -9,3 +14,7 @@ services:
         generateValue: true
       - key: PYTHON_VERSION
         value: 3.11.0
+      - key: DATABASE_URL
+        fromDatabase:
+          name: nfl-geoguessr-db
+          property: connectionString
